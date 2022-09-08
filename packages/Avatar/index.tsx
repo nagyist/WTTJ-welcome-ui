@@ -8,11 +8,10 @@ import { CreateWuiProps, forwardRef } from '@welcome-ui/system'
 import { getInitials as defaultGetInitials, getSeededColor } from './utils'
 import * as S from './styles'
 
-type SubColor = WuiTheme['colors']['sub']
 type Size = 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 
 export interface AvatarOptions {
-  color?: string | SubColor
+  color?: WuiTheme['colors']
   getInitials?: (name: string) => string
   name: string
   size?: Size
@@ -39,7 +38,7 @@ export const Avatar: React.FC<AvatarProps> = memo(
       ref
     ) => {
       const theme = useTheme()
-      const backgroundColor = color || getSeededColor(theme.colors.sub, name)
+      const backgroundColor = color || getSeededColor(theme.colors, name)
       const avatarSize = theme.avatars.sizes[size]
       const avatarFontSize = fontSize || `calc(${w ? theme.toRem(w as number) : avatarSize} / 2.5)`
 
