@@ -5,7 +5,7 @@ const themeStorage = (typeof window !== 'undefined' && localStorage.getItem('the
 
 const ThemeContext = createContext({
   theme: themeStorage,
-  setTheme: () => {}
+  setTheme: () => {},
 })
 
 export function useThemeContext() {
@@ -18,17 +18,17 @@ export function useSetThemeContext() {
   return setTheme
 }
 
-export function ThemeProvider({ children }) {
+export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(themeStorage)
   typeof window !== 'undefined' && localStorage.setItem('theme', theme)
 
   const value = {
     theme,
-    setTheme
+    setTheme,
   }
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
 ThemeProvider.propTypes = {
-  children: object.isRequired
+  children: object.isRequired,
 }

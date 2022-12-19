@@ -1,6 +1,5 @@
 .env
 dist/
-docs/out
 docs/.next
 .cache/
 node_modules/

@@ -1,0 +1,163 @@
+import { DocumentationLayout } from '../../layouts/Documentation'
+
+# Upgrade
+
+Version 5: Rework of our foundations
+
+## Breaking Changes
+
+We rework our theme on the colors and spacings properties. Use the migration script to migrate easily to V5 on welcome-ui project.
+
+```bash
+yarn migrate "../yourProject/src/**/**.**(tsx|ts|js)"
+```
+
+## Theme
+
+### Colors
+
+We changed our colors dark and light to be full compatible with dark mode. Now dark are black rgba with transparency, and light are white rgba with transparency.
+
+We need also for typescript compatibility rework our colors naming :
+
+- Before : `colors.dark.900`
+- After : `colors['dark-900']`
+
+We rework some colors:
+
+- **v4 compare to v5**
+- [success/danger/warning/info].500 become [success/danger/warning/info]-300
+- [success/danger/warning/info].700 become [success/danger/warning/info]-400
+- new color [success/danger/warning/info]-500
+- nude.400 become nude-500
+- nude.500 become nude-400
+- nude.700 become nude-600
+- nude.800 become nude-700
+- ** the light colors are all white with opacity, you need to replace the old light color for text with new black color **
+  - light.800 become dark-100
+  - light.700 become dark-200
+  - light.500 become dark-400
+  - light.200 become dark-400
+  - light.100 become dark-500
+  - now the light colors variants are 100, 200, 400, 500, 700, 900(without opacity)
+- ** the dark colors are all black with opacity, it's also used for text color **
+  - dark.100 become dark-500
+  - dark.200 become dark-700
+  - dark.500 become dark.900
+  - dark.700 become dark.900
+  - dark.800 become dark.900
+  - now the dark colors variants are 100, 200, 400, 500, 700, 900(without opacity)
+- new color white (get the light.900 for dark mode)
+- new color black (get the dark.900 for dark mode)
+- the color for html is now dark-500
+
+### Spacing
+
+We rework our spacing:
+
+- **v5 compare to v4**
+- xxs (2px) was new size (before it was 6px)
+- xs (4px) was new size (before it was 8px)
+- sm (8px) was xs
+- md (12px) was same size
+- lg (16px) was lg (15px)
+- xl (24px) was xxl
+- xxl (32px) was 3xl (30px)
+- 3xl (48px) was 5xl (50px)
+- 4xl (64px) was 6xl
+- 5xl (96px) is new size
+- 6xl (128px) is new size
+- 7xl (192px) is new size
+
+### Typography
+
+We change the name of variants to `XS` `S` `M` and remove useless variants.
+
+## Components
+
+### Modal
+
+- We have adjusted colors and spacing.
+- **Modal.Title** is now named **Modal.Header** and has props `title` (mandatory) and `subtitle` (optional).
+- **Modal.Cover** has been removed.
+
+### Alert / Toast / Growl
+
+- We have adjusted colors and spacing.
+- The props `icon` is now given to the **Alert** component and not to **Alert.Title**.
+- The props `icon` is now given to **Toast.Growl** / **Toast.Snackbar** component and not to **Toast.Title**.
+- Position `top` has been replaced with `top-center` and position `bottom` has been replaced with `bottom-center`.
+- The `useToast` hook is deprecated. Instead, you can directly use `toast` function.
+- In order to use `Toast` component, you must add the `Notifications` component in your project root.
+
+### Buttons
+
+- We have adjusted colors and spacing.
+- The `xl` size has been removed.
+- The `ternary-negative` has been removed.
+- The `quaternary` variant is now named `ghost`.
+- The icon size now adjusts to the size of the button.
+
+### Tag
+
+- We have adjusted colors and spacing.
+- The `lg` size has been removed.
+- The `shape` prop has been removed.
+- The icon size now adjusts to the size of the tag.
+
+### Badges
+
+- new `Badge` component [show more](/components/badge)
+
+### RadioGroup
+
+We removed the check icon on radio input and change the style of it.
+
+### FileDrop
+
+`accept` property changed on v14 of react-dropzone:
+
+- Before: `accept: "image/*"`
+- After: `accept: { "image/*": [] }`
+
+See more about [showOpenFilePicker](https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker#examples) and [media type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types).
+
+### Icons
+
+We rework our icon size:
+
+- **v5 compare to v4**
+- This size has been removed was xxs (7px)
+- xs (12px) was xs (10px)
+- sm (16px) was sm (12px)
+- md (24px) was md (15px)
+- lg (32px) was lg (20px)
+- xl (48px) was xl (27.574px)
+- xxl (64px) was new size
+
+We remove all `@welcome-ui/icons.*` packages (except **icons.font**). There is now two packages available:
+
+- [@welcome-ui/icons](components/icons) using **svg**
+- [@welcome-ui/icons.font](components/icons-font) using **webfont**
+
+We renamed some icons:
+
+- `<GetIcon>` become `<DownloadIcon>`
+- `<EyeIcon>` become `<ShowIcon>`
+- `<ThumbupIcon>` become `<ThumbUpIcon>`
+- `<ThumbdownIcon>` become `<ThumbDownIcon>`
+- `<FlagFillIcon>` become `<FlagIcon>`
+- `<FlagIcon>` become `<FlagOutlineIcon>`
+- `<ChevronIcon>` become `<CodeIcon>`
+- `<DuplicateIcon>` become `<CopyIcon>`
+- `<TagsIcon>` become `<TagIcon>`
+
+## Other versions
+
+- [Version 4](upgrades/v4)
+- [Version 3](upgrades/v3)
+- [Version 2](upgrades/v2)
+
+<pagination />
+
+export default ({ children }) => <DocumentationLayout>{children}</DocumentationLayout>
